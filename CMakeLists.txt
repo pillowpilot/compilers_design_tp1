@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.5)
 
 project(compilers1 CXX)
 
@@ -11,7 +11,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 
-find_package(GTest REQUIRED)
+set(BUILD_TESTING OFF)
 
 include_directories(include) # Add include/ to all targets include directories
 
@@ -37,9 +37,13 @@ target_link_libraries(Hopcroft DFA)
 
 # Executables
 add_executable(Main src/CompilersTP1)
-target_link_libraries(Main ShuntingYard NFA DFA Powerset Thompson Hopcroft ${GTEST_LIBRARIES})
+target_link_libraries(Main ShuntingYard NFA DFA Powerset Thompson Hopcroft)
 
 # Tests
+if( ${BUILD_TESTING} STREQUAL ON)
+
+find_package(GTest REQUIRED)
+
 enable_testing()
 
 add_executable(ShuntingYardTests tests/SimpleAlgorithm_test)
@@ -69,3 +73,5 @@ add_test(PowersetTests PowersetTests)
 add_executable(HopcroftTests tests/Hopcroft_test)
 target_link_libraries(HopcroftTests Hopcroft ${GTEST_LIBRARIES})
 add_test(HopcroftTests HopcroftTests)
+
+endif( ${BUILD_TESTING} STREQUAL ON)

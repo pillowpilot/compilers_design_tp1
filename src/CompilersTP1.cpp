@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include "gtest/gtest.h"
 #include "Hopcroft.h"
 #include "SimpleAlgorithm.h"
 #include "Powerset.h"
@@ -88,17 +87,11 @@ bool proccessACase()
 }
 
 int main(int argc, char* argv[]) {
-	::testing::InitGoogleTest(&argc, argv);
-	const bool runTests = false;
-
 	printIntroduction();
 
 	while(proccessACase());
 
 	printConclution();
 
-	if(runTests)
-		return RUN_ALL_TESTS();
-	else
-		return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
